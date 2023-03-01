@@ -1,4 +1,8 @@
+import time
 from booking.booking import Booking
 
+search = input()
+
 with Booking(teardown=True) as bot:
-    bot.land_first_page()
+    # time.sleep(1)
+    bot.change_currency(search)
