@@ -1,5 +1,8 @@
 import time
 import booking.constants as const
+from .booking_filtration import BookingFiltration
+from .booking_report import BookingReport
+from prettytable import PrettyTable
 
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
@@ -124,3 +127,20 @@ class Booking(webdriver.Chrome):
             'button[type="submit"]',
         )
         search_button.click()
+
+    def apply_filtrations(self):
+        filtration = BookingFiltration(driver=self)
+        filtration.apply_star_rating(4, 5)
+
+        # filtration.sort_price_lowest_first()
+
+    def report_results(self):
+        hotel_boxes = self.find_element(
+            By.XPATH,
+            '//div[@class="d4924c9e74"]',
+        )
+
+        report = BookingReport(hotel_boxes)
+        table = PrettyTable(field_names=["Hotel Name", "Hotel Price", "Hotel Score"])
+        table.add_rows(report.pull_deal_box_attributes())
+        print(table)
