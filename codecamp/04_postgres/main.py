@@ -1,4 +1,5 @@
 import psycopg2
+from queries import *
 
 con = psycopg2.connect(
     user="crossp",
@@ -7,7 +8,13 @@ con = psycopg2.connect(
     database="selenium_pr",
 )
 
-# --- test
-print(con.closed)  # 0, connected
+cur = con.cursor()
+query = read_all_query()
+# create_row_query(
+#     ["'Banana'", 5],
+# )
+cur.execute(query)
+print(cur.fetchall())  # 읽어올때 사용
+con.commit()
+cur.close()
 con.close()
-print(con.closed)  # 1, disconnected
