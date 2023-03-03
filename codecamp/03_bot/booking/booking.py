@@ -2,6 +2,8 @@ import time
 import booking.constants as const
 from .booking_filtration import BookingFiltration
 from .booking_report import BookingReport
+from .queries import *
+
 from prettytable import PrettyTable
 
 from selenium import webdriver
@@ -141,6 +143,6 @@ class Booking(webdriver.Chrome):
         )
 
         report = BookingReport(hotel_boxes)
-        table = PrettyTable(field_names=["Hotel Name", "Hotel Price", "Hotel Score"])
-        table.add_rows(report.pull_deal_box_attributes())
-        print(table)
+        # table = PrettyTable(field_names=["Hotel Name", "Hotel Price", "Hotel Score"])
+        datalist = report.pull_deal_box_attributes()
+        return create_row_query(datalist)

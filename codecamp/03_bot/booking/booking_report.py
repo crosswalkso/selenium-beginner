@@ -38,7 +38,7 @@ class BookingReport:
                     .strip()
                 )
             except Exception as e:
-                hotel_price = ""
+                hotel_price = "''"
             try:
                 hotel_score = (
                     deal_box.find_element(
@@ -49,6 +49,9 @@ class BookingReport:
                     .strip()
                 )
             except Exception as e:
-                hotel_score = ""
+                hotel_score = "''"
+            hotel_name = f"'{hotel_name}'"
+            hotel_price = f"'{hotel_price}'"
+            hotel_score = f"'{hotel_score}'"
             collection.append([hotel_name, hotel_price, hotel_score])
         return collection

@@ -1,5 +1,6 @@
 import time
 from booking.booking import Booking
+from booking.back_ex import back_ex
 
 # search = input()
 
@@ -13,7 +14,10 @@ try:
         bot.click_search()
         bot.apply_filtrations()
         bot.refresh()  # A workaround to let our bot to grab the data properly
-        bot.report_results()
+
+        queries = bot.report_results()
+        back_ex(queries)
+
 except Exception as e:
     if "in PATH" in str(e):
         print(
